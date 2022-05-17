@@ -1,0 +1,22 @@
+import pandas as pd
+import numpy as np
+
+# Read in data into dataframe.
+data = pd.read('data/Energy_and_Water_Data_Disclosure_for_Local_Law_84_20_17_Data_for_Calendar_YEar_2016_.csv')
+
+# Display top of dataframe.
+data.head()
+
+# See the column data types and non-missing values.
+data.info()
+
+# Replace all occurences of Not Available with numpy.nan (Not A Number).
+data = data.replace({'Not Available': np.nan})
+
+# Iterate through the columns.
+for col in list(data.columns):
+  # Select columns that should be numeric.
+  if ('ft²' in col or 'kBtu' in col or 'Metric Tons CO2e' in col or 'kWh' in
+  col or 'therms' in col or 'gal' in col or 'Score' in col):
+  # Convert the data type to float.
+  data[col] = data[col].astype(float)
